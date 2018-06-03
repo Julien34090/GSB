@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSB", "GSB\GSB.csproj", "{52BC002A-5336-4421-BEAA-22537FB1551E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52BC002A-5336-4421-BEAA-22537FB1551E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52BC002A-5336-4421-BEAA-22537FB1551E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52BC002A-5336-4421-BEAA-22537FB1551E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52BC002A-5336-4421-BEAA-22537FB1551E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C06A871-3A0D-4084-B51C-6DDB7F9F33CB}
+	EndGlobalSection
+EndGlobal
