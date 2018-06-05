@@ -130,12 +130,9 @@ namespace GSB
         private void Interface_Load(object sender, EventArgs e)
         {
             BDD = new BDD();
-            lesPersonnels = new List<Personnel>();
-            lesVisiteurs = new List<Visiteur>();
-            lesTechniciens = new List<Technicien>();
-            lesProduits = new List<Produit>();
 
             actualiserListeProduitOngletProduit();
+            actualiserListeOngletPraticien();
         }
 
         private void actualiserListeProduitOngletProduit()
@@ -150,6 +147,23 @@ namespace GSB
             while (rdr.Read())
             {
                 listeProduits.Items.Add(rdr.GetInt32(0) + " Le produit: " + rdr.GetString(1) + " Effet: " + rdr.GetString(2) + " CI: " + rdr.GetString(3) + " Compo: " + rdr.GetString(4) + " Poso: " + rdr.GetString(5) + " Coût: " + rdr.GetDouble(7));
+            }
+
+            rdr.Close();
+        }
+
+        private void actualiserListeOngletPraticien()
+        {
+            listePraticiens3.Items.Clear();
+
+            string requete = "SELECT * FROM PRATICIEN;";
+
+            MySqlCommand cmd = BDD.executerRequete(requete);
+            rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                listePraticiens3.Items.Add(rdr.GetInt32(0) + " Le nom du praticien: " + rdr.GetString(1) + " Libelle: " + rdr.GetString(2));
             }
 
             rdr.Close();
@@ -493,12 +507,48 @@ namespace GSB
 
         private void button10_Click(object sender, EventArgs e)
         {
-            string requete = "INSERT INTO praticien (nom, libelle)" + "VALUES ('" + tbNomPraticien.Text + "', '" + tbLibellePraticien + ");";
+            string requete = "INSERT INTO praticien (nom, libelle) " + "VALUES ('" + tbNomPraticien.Text + "', '" + tbLibellePraticien.Text + "');";
 
             MySqlCommand cmd = BDD.executerRequete(requete);
             cmd.ExecuteNonQuery();
 
-            actualiserListeProduitOngletProduit();
+            actualiserListeOngletPraticien();
+        }
+
+        private void btSupprimerPraticien_Click(object sender, EventArgs e)
+        {
+            MySqlCommand cmd = BDD.executerRequete("DELETE FROM PRATICIEN WHERE id_praticien = " + Convert.ToInt32(tbIdPraticienSupprimer.Text));
+            int resultat = cmd.ExecuteNonQuery();
+
+            if (resultat == 1)
+            {
+                actualiserListeOngletPraticien();
+                MessageBox.Show("Le praticien n°" + tbIdPraticienSupprimer.Text + " a bien été supprimé");
+            }
+            else
+            {
+                MessageBox.Show("Le praticien n°" + tbIdPraticienSupprimer.Text + " n'existe pas ou a déjà été supprimé");
+            }
+        }
+
+        private void btModifierPraticien_Click(object sender, EventArgs e)
+            {
+                {
+
+                    MySqlCommand cmd = BDD.executerRequete("UPDATE PRATICIEN SET nom = '" + tbNomPraticien.Text + "', libelle = '" + tbLibellePraticien.Text +
+                    "' WHERE id_praticien = " + Convert.ToInt32(tbIdPraticienModifier.Text) + ";");
+                    int resultat = cmd.ExecuteNonQuery();
+
+                    if (resultat == 1)
+                    {
+                        actualiserListeOngletPraticien();
+                        MessageBox.Show("Le produit n°" + tbIdPraticienModifier.Text + " a bien été modifié");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Impossible de trouver le personnel n°" + tbIdPraticienModifier.Text);
+                    }
+              }
         }
     }
 }

@@ -2416,6 +2416,7 @@
             this.btSupprimerPraticien.TabIndex = 6;
             this.btSupprimerPraticien.Text = "Supprimer le praticien correspondant à l\'ID";
             this.btSupprimerPraticien.UseVisualStyleBackColor = true;
+            this.btSupprimerPraticien.Click += new System.EventHandler(this.btSupprimerPraticien_Click);
             // 
             // btModifierPraticien
             // 
@@ -2426,6 +2427,7 @@
             this.btModifierPraticien.TabIndex = 5;
             this.btModifierPraticien.Text = "Modifier le produit correspondant à l\'ID avec les informations ci-dessus";
             this.btModifierPraticien.UseVisualStyleBackColor = true;
+            this.btModifierPraticien.Click += new System.EventHandler(this.btModifierPraticien_Click);
             // 
             // btAjouterPraticien
             // 
