@@ -22,6 +22,7 @@ namespace GSB
         List<Technicien> lesTechniciens;
         Produit unProduit;
         List<Produit> lesProduits;
+        MySqlDataReader rdr;
 
 
         public Interface()
@@ -128,21 +129,30 @@ namespace GSB
 
         private void Interface_Load(object sender, EventArgs e)
         {
-            BDD BDD = new BDD();
+            BDD = new BDD();
             lesPersonnels = new List<Personnel>();
             lesVisiteurs = new List<Visiteur>();
             lesTechniciens = new List<Technicien>();
             lesProduits = new List<Produit>();
+
+            actualiserListeProduitOngletProduit();
         }
 
         private void actualiserListeProduitOngletProduit()
         {
             listeProduits.Items.Clear();
 
-            foreach (Produit Pro in lesProduits)
+            string requete = "SELECT * FROM PRODUIT;";
+
+            MySqlCommand cmd = BDD.executerRequete(requete);
+            rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
             {
-                listeProduits.Items.Add(Pro.infosProduit());
+                listeProduits.Items.Add(rdr.GetInt32(0) + " Le produit: " + rdr.GetString(1) + " Effet: " + rdr.GetString(2) + " CI: " + rdr.GetString(3) + " Compo: " + rdr.GetString(4) + " Poso: " + rdr.GetString(5) + " Coût: " + rdr.GetDouble(7));
             }
+
+            rdr.Close();
         }
 
         private void actualiserListePersonnelOngletPersonnel()
@@ -255,14 +265,12 @@ namespace GSB
                 unPersonnel = new Personnel(tbNomPersonnel.Text, tbPrénomPersonnel.Text, tbDateEmbauchePersonnel.Text, tbRégionPersonnel.Text, tbMailPersonnel.Text, "Autre");
                 lesPersonnels.Add(unPersonnel);
 
-                BDD.ouvrirConnexion();
-
                 string requete = "INSERT INTO Personnel (nom, prenom, date_embauche, region_carriere, mail)" +
                     " VALUES ('" + tbNomPersonnel.Text + "', '" + tbPrénomPersonnel.Text + "', '" + tbDateEmbauchePersonnel.Text + "', '" + tbRégionPersonnel.Text + "', '" + tbMailPersonnel.Text + "');";
                 MySqlCommand cmd = BDD.executerRequete(requete);
-                cmd.ExecuteNonQuery();
+                rdr = cmd.ExecuteReader();
 
-                BDD.fermerConnexion();
+
 
             }
 
@@ -429,17 +437,11 @@ namespace GSB
 
         private void btAjouterProduit_Click(object sender, EventArgs e)
         {
-            unProduit = new Produit(tbNomProduit.Text, tbEffetTheraProduit.Text, tbCompositionProduit.Text, tbContreIndicationProduit.Text, tbPosologieProduit.Text, tbFamilleProduit.Text, Convert.ToDouble(tbCoutProduit.Text));
-            lesProduits.Add(unProduit);
-
-            /*BDD.ouvrirConnexion();
-
-            string requete = "INSERT INTO PRODUIT (nom, effet_therapeutique, contre_indication, composition, posologie, famille, cout)" + "VALUES (" + tbNomProduit.Text + ", '" + tbEffetTheraProduit.Text + "', '" + tbCompositionProduit.Text + "', '" + tbCompositionProduit.Text + "', '" + tbContreIndicationProduit.Text + "', '" + tbPosologieProduit.Text + "', '" + tbFamilleProduit.Text + "', " + Convert.ToDouble(tbCoutProduit.Text) + ");";
+            string requete = "INSERT INTO PRODUIT (nom, effet_therapeutique, contre_indication, composition, posologie, famille, cout)" + "VALUES ('" + tbNomProduit.Text + "', '" + tbEffetTheraProduit.Text + "', '" + tbContreIndicationProduit.Text + "', '" + tbCompositionProduit.Text + "' , '" + tbPosologieProduit.Text + "', '" + tbFamilleProduit.Text + "', " + Convert.ToDouble(tbCoutProduit.Text) + ");";
 
             MySqlCommand cmd = BDD.executerRequete(requete);
             cmd.ExecuteNonQuery();
 
-            BDD.fermerConnexion(); */
             actualiserListeProduitOngletProduit();
         }
 
@@ -450,65 +452,53 @@ namespace GSB
 
         private void btSupprimerProduit_Click(object sender, EventArgs e)
         {
-            bool trouve = false;
-            Produit ProduitSupprimer = null;
+            MySqlCommand cmd = BDD.executerRequete("DELETE FROM PRODUIT WHERE id_produit = " + Convert.ToInt32(tbSupprimerProduit.Text));
+            int resultat = cmd.ExecuteNonQuery();
 
-            foreach (Produit Pro in lesProduits)
+            if (resultat == 1)
             {
-                //si nom trouve dans la liste lesProduits 
-                if (Pro.Id_produit == Convert.ToInt16(tbSupprimerProduit.Text))
-                    {
-                    ProduitSupprimer = Pro;
-
-                    trouve = true;
-                    }
-            }
-            if (trouve)
-            {
-                lesProduits.Remove(ProduitSupprimer);
                 actualiserListeProduitOngletProduit();
-
-                MessageBox.Show("Le produit " + tbSupprimerProduit.Text + " a été supprimé avec succés");
+                MessageBox.Show("Le produit n°" + tbSupprimerProduit.Text + " a bien été supprimé");
             }
-
             else
             {
-                MessageBox.Show("Il n'existe aucun produit comprenant le nom " + tbSupprimerProduit.Text + " n'a pas été trouvé.");
+                MessageBox.Show("Le produit n°" + tbSupprimerProduit.Text + " n'existe pas ou a déjà été supprimé");
             }
         }
 
         private void btModifierProduit_Click(object sender, EventArgs e)
         {
-            bool trouve = false;
-
-            foreach (Produit Pro in lesProduits)
             {
-                //Si l'ID entré correspond à celui trouvé dans la liste lesProduits
-                if (Pro.Id_produit == Convert.ToInt16(tbIdProduitModifier.Text))
-                {
-                    Pro.Nom = tbNomProduit.Text;
-                    Pro.Effet_thera = tbEffetTheraProduit.Text;
-                    Pro.Composition = tbCompositionProduit.Text;
-                    Pro.Contre_Indication = tbContreIndicationProduit.Text;
-                    Pro.Composition = tbCompositionProduit.Text;
-                    Pro.Posologie = tbPosologieProduit.Text;
-                    Pro.Famille = tbFamilleProduit.Text;
-                    Pro.Cout = Convert.ToDouble(tbCoutProduit.Text);
+        
+                MySqlCommand cmd = BDD.executerRequete("UPDATE PRODUIT SET nom = '" + tbNomProduit.Text + "', effet_therapeutique = '" + tbEffetTheraProduit.Text + "', contre_indication = '" + tbContreIndicationProduit.Text + "', composition = '" + tbCompositionProduit.Text + "', posologie = '" + tbPosologieProduit.Text + "', famille = '" + tbFamilleProduit.Text + "', cout = " + Convert.ToDouble(tbCoutProduit.Text) + 
+                " WHERE id_produit = " + Convert.ToInt32(tbIdProduitModifier.Text) + ";");
+                int resultat = cmd.ExecuteNonQuery();
 
-                    trouve = true;
+                if (resultat == 1)
+                {
+                    actualiserListeProduitOngletProduit();
+                    MessageBox.Show("Le produit n°" + tbIdProduitModifier.Text + " a bien été modifié");
+                }
+                else
+                {
+                    MessageBox.Show("Impossible de trouver le personnel n°" + tbIdProduitModifier.Text);
                 }
             }
+        }
 
-            if (trouve == false)
-            {
-                MessageBox.Show("Aucun produit avec l'Id " + tbIdProduitModifier.Text + " n'a été trouvé");
-            }
-            else
-            {
-                actualiserListeProduitOngletProduit();
+        private void tbPosologieProduit_TextChanged(object sender, EventArgs e)
+        {
 
-                MessageBox.Show("Produit " + tbIdProduitModifier.Text + " modifié avec succés");
-            }
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string requete = "INSERT INTO praticien (nom, libelle)" + "VALUES ('" + tbNomPraticien.Text + "', '" + tbLibellePraticien + ");";
+
+            MySqlCommand cmd = BDD.executerRequete(requete);
+            cmd.ExecuteNonQuery();
+
+            actualiserListeProduitOngletProduit();
         }
     }
 }

@@ -223,12 +223,12 @@
             this.label88 = new System.Windows.Forms.Label();
             this.listePraticiens3 = new System.Windows.Forms.ListBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btSupprimerPraticien = new System.Windows.Forms.Button();
+            this.btModifierPraticien = new System.Windows.Forms.Button();
+            this.btAjouterPraticien = new System.Windows.Forms.Button();
             this.label87 = new System.Windows.Forms.Label();
-            this.textBox46 = new System.Windows.Forms.TextBox();
-            this.textBox45 = new System.Windows.Forms.TextBox();
+            this.tbLibellePraticien = new System.Windows.Forms.TextBox();
+            this.tbNomPraticien = new System.Windows.Forms.TextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.produit = new System.Windows.Forms.TabPage();
             this.tbSupprimerProduit = new System.Windows.Forms.TextBox();
@@ -259,6 +259,10 @@
             this.tbContreIndicationProduit = new System.Windows.Forms.TextBox();
             this.tbEffetTheraProduit = new System.Windows.Forms.TextBox();
             this.tbNomProduit = new System.Windows.Forms.TextBox();
+            this.lbID = new System.Windows.Forms.Label();
+            this.tbIdPraticienSupprimer = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.tbIdPraticienModifier = new System.Windows.Forms.TextBox();
             this.menu.SuspendLayout();
             this.personnel.SuspendLayout();
             this.groupBoxAjouterPersonnel.SuspendLayout();
@@ -2329,6 +2333,9 @@
             // 
             // praticien
             // 
+            this.praticien.Controls.Add(this.tbIdPraticienSupprimer);
+            this.praticien.Controls.Add(this.lbID);
+            this.praticien.Controls.Add(this.btSupprimerPraticien);
             this.praticien.Controls.Add(this.nbPraticiens);
             this.praticien.Controls.Add(this.label89);
             this.praticien.Controls.Add(this.label88);
@@ -2354,7 +2361,7 @@
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(509, 320);
+            this.label89.Location = new System.Drawing.Point(381, 397);
             this.label89.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(151, 17);
@@ -2383,51 +2390,53 @@
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.button12);
-            this.groupBox12.Controls.Add(this.button11);
-            this.groupBox12.Controls.Add(this.button10);
+            this.groupBox12.Controls.Add(this.tbIdPraticienModifier);
+            this.groupBox12.Controls.Add(this.label65);
+            this.groupBox12.Controls.Add(this.btModifierPraticien);
+            this.groupBox12.Controls.Add(this.btAjouterPraticien);
             this.groupBox12.Controls.Add(this.label87);
-            this.groupBox12.Controls.Add(this.textBox46);
-            this.groupBox12.Controls.Add(this.textBox45);
+            this.groupBox12.Controls.Add(this.tbLibellePraticien);
+            this.groupBox12.Controls.Add(this.tbNomPraticien);
             this.groupBox12.Controls.Add(this.label86);
             this.groupBox12.Location = new System.Drawing.Point(4, 4);
             this.groupBox12.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox12.Size = new System.Drawing.Size(356, 313);
+            this.groupBox12.Size = new System.Drawing.Size(356, 311);
             this.groupBox12.TabIndex = 0;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Ajouter/modifier un praticien";
             // 
-            // button12
+            // btSupprimerPraticien
             // 
-            this.button12.Location = new System.Drawing.Point(48, 271);
-            this.button12.Margin = new System.Windows.Forms.Padding(4);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(245, 28);
-            this.button12.TabIndex = 6;
-            this.button12.Text = "Supprimer le praticien sélectionné";
-            this.button12.UseVisualStyleBackColor = true;
+            this.btSupprimerPraticien.Location = new System.Drawing.Point(384, 345);
+            this.btSupprimerPraticien.Margin = new System.Windows.Forms.Padding(4);
+            this.btSupprimerPraticien.Name = "btSupprimerPraticien";
+            this.btSupprimerPraticien.Size = new System.Drawing.Size(289, 28);
+            this.btSupprimerPraticien.TabIndex = 6;
+            this.btSupprimerPraticien.Text = "Supprimer le praticien correspondant à l\'ID";
+            this.btSupprimerPraticien.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // btModifierPraticien
             // 
-            this.button11.Location = new System.Drawing.Point(9, 212);
-            this.button11.Margin = new System.Windows.Forms.Padding(4);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(336, 50);
-            this.button11.TabIndex = 5;
-            this.button11.Text = "Modifier le praticien sélectionné avec les informations ci-dessus";
-            this.button11.UseVisualStyleBackColor = true;
+            this.btModifierPraticien.Location = new System.Drawing.Point(8, 220);
+            this.btModifierPraticien.Margin = new System.Windows.Forms.Padding(4);
+            this.btModifierPraticien.Name = "btModifierPraticien";
+            this.btModifierPraticien.Size = new System.Drawing.Size(272, 50);
+            this.btModifierPraticien.TabIndex = 5;
+            this.btModifierPraticien.Text = "Modifier le produit correspondant à l\'ID avec les informations ci-dessus";
+            this.btModifierPraticien.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // btAjouterPraticien
             // 
-            this.button10.Location = new System.Drawing.Point(80, 176);
-            this.button10.Margin = new System.Windows.Forms.Padding(4);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(187, 28);
-            this.button10.TabIndex = 4;
-            this.button10.Text = "Ajouter un praticien";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btAjouterPraticien.Location = new System.Drawing.Point(8, 176);
+            this.btAjouterPraticien.Margin = new System.Windows.Forms.Padding(4);
+            this.btAjouterPraticien.Name = "btAjouterPraticien";
+            this.btAjouterPraticien.Size = new System.Drawing.Size(336, 28);
+            this.btAjouterPraticien.TabIndex = 4;
+            this.btAjouterPraticien.Text = "Ajouter un praticien";
+            this.btAjouterPraticien.UseVisualStyleBackColor = true;
+            this.btAjouterPraticien.Click += new System.EventHandler(this.button10_Click);
             // 
             // label87
             // 
@@ -2439,22 +2448,22 @@
             this.label87.TabIndex = 3;
             this.label87.Text = "Libellé :";
             // 
-            // textBox46
+            // tbLibellePraticien
             // 
-            this.textBox46.Location = new System.Drawing.Point(8, 81);
-            this.textBox46.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox46.Multiline = true;
-            this.textBox46.Name = "textBox46";
-            this.textBox46.Size = new System.Drawing.Size(339, 70);
-            this.textBox46.TabIndex = 2;
+            this.tbLibellePraticien.Location = new System.Drawing.Point(8, 81);
+            this.tbLibellePraticien.Margin = new System.Windows.Forms.Padding(4);
+            this.tbLibellePraticien.Multiline = true;
+            this.tbLibellePraticien.Name = "tbLibellePraticien";
+            this.tbLibellePraticien.Size = new System.Drawing.Size(339, 70);
+            this.tbLibellePraticien.TabIndex = 2;
             // 
-            // textBox45
+            // tbNomPraticien
             // 
-            this.textBox45.Location = new System.Drawing.Point(65, 23);
-            this.textBox45.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox45.Name = "textBox45";
-            this.textBox45.Size = new System.Drawing.Size(281, 22);
-            this.textBox45.TabIndex = 1;
+            this.tbNomPraticien.Location = new System.Drawing.Point(65, 23);
+            this.tbNomPraticien.Margin = new System.Windows.Forms.Padding(4);
+            this.tbNomPraticien.Name = "tbNomPraticien";
+            this.tbNomPraticien.Size = new System.Drawing.Size(281, 22);
+            this.tbNomPraticien.TabIndex = 1;
             // 
             // label86
             // 
@@ -2623,7 +2632,7 @@
             this.btAjouterProduit.Margin = new System.Windows.Forms.Padding(4);
             this.btAjouterProduit.Name = "btAjouterProduit";
             this.btAjouterProduit.Size = new System.Drawing.Size(422, 28);
-            this.btAjouterProduit.TabIndex = 16;
+            this.btAjouterProduit.TabIndex = 7;
             this.btAjouterProduit.Text = "Ajouter le produit";
             this.btAjouterProduit.UseVisualStyleBackColor = true;
             this.btAjouterProduit.Click += new System.EventHandler(this.btAjouterProduit_Click);
@@ -2694,7 +2703,7 @@
             this.tbCompositionProduit.Multiline = true;
             this.tbCompositionProduit.Name = "tbCompositionProduit";
             this.tbCompositionProduit.Size = new System.Drawing.Size(423, 24);
-            this.tbCompositionProduit.TabIndex = 3;
+            this.tbCompositionProduit.TabIndex = 6;
             // 
             // label101
             // 
@@ -2712,7 +2721,7 @@
             this.tbCoutProduit.Margin = new System.Windows.Forms.Padding(4);
             this.tbCoutProduit.Name = "tbCoutProduit";
             this.tbCoutProduit.Size = new System.Drawing.Size(287, 22);
-            this.tbCoutProduit.TabIndex = 4;
+            this.tbCoutProduit.TabIndex = 5;
             // 
             // label102
             // 
@@ -2730,7 +2739,8 @@
             this.tbPosologieProduit.Margin = new System.Windows.Forms.Padding(4);
             this.tbPosologieProduit.Name = "tbPosologieProduit";
             this.tbPosologieProduit.Size = new System.Drawing.Size(287, 22);
-            this.tbPosologieProduit.TabIndex = 6;
+            this.tbPosologieProduit.TabIndex = 4;
+            this.tbPosologieProduit.TextChanged += new System.EventHandler(this.tbPosologieProduit_TextChanged);
             // 
             // tbFamilleProduit
             // 
@@ -2738,7 +2748,7 @@
             this.tbFamilleProduit.Margin = new System.Windows.Forms.Padding(4);
             this.tbFamilleProduit.Name = "tbFamilleProduit";
             this.tbFamilleProduit.Size = new System.Drawing.Size(285, 22);
-            this.tbFamilleProduit.TabIndex = 5;
+            this.tbFamilleProduit.TabIndex = 3;
             // 
             // tbContreIndicationProduit
             // 
@@ -2763,6 +2773,38 @@
             this.tbNomProduit.Name = "tbNomProduit";
             this.tbNomProduit.Size = new System.Drawing.Size(285, 22);
             this.tbNomProduit.TabIndex = 0;
+            // 
+            // lbID
+            // 
+            this.lbID.AutoSize = true;
+            this.lbID.Location = new System.Drawing.Point(680, 351);
+            this.lbID.Name = "lbID";
+            this.lbID.Size = new System.Drawing.Size(21, 17);
+            this.lbID.TabIndex = 7;
+            this.lbID.Text = "ID";
+            // 
+            // tbIdPraticienSupprimer
+            // 
+            this.tbIdPraticienSupprimer.Location = new System.Drawing.Point(707, 348);
+            this.tbIdPraticienSupprimer.Name = "tbIdPraticienSupprimer";
+            this.tbIdPraticienSupprimer.Size = new System.Drawing.Size(41, 22);
+            this.tbIdPraticienSupprimer.TabIndex = 8;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(285, 237);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(21, 17);
+            this.label65.TabIndex = 6;
+            this.label65.Text = "ID";
+            // 
+            // tbIdPraticienModifier
+            // 
+            this.tbIdPraticienModifier.Location = new System.Drawing.Point(307, 234);
+            this.tbIdPraticienModifier.Name = "tbIdPraticienModifier";
+            this.tbIdPraticienModifier.Size = new System.Drawing.Size(42, 22);
+            this.tbIdPraticienModifier.TabIndex = 7;
             // 
             // Interface
             // 
@@ -3007,12 +3049,12 @@
         private System.Windows.Forms.Label label88;
         private System.Windows.Forms.ListBox listePraticiens3;
         private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btSupprimerPraticien;
+        private System.Windows.Forms.Button btModifierPraticien;
+        private System.Windows.Forms.Button btAjouterPraticien;
         private System.Windows.Forms.Label label87;
-        private System.Windows.Forms.TextBox textBox46;
-        private System.Windows.Forms.TextBox textBox45;
+        private System.Windows.Forms.TextBox tbLibellePraticien;
+        private System.Windows.Forms.TextBox tbNomPraticien;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.TabPage produit;
         private System.Windows.Forms.Label label90;
@@ -3053,6 +3095,10 @@
         private System.Windows.Forms.TextBox tbSupprimerProduit;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Button btSupprimerProduit;
+        private System.Windows.Forms.TextBox tbIdPraticienSupprimer;
+        private System.Windows.Forms.Label lbID;
+        private System.Windows.Forms.TextBox tbIdPraticienModifier;
+        private System.Windows.Forms.Label label65;
     }
 }
 

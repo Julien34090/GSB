@@ -7,31 +7,19 @@ using MySql.Data.MySqlClient;
 
 namespace GSB
 {
-
     class BDD
     {
-        private string bdd = @"server=localhost;userid=root;password=;database=gsb";
-
+        private string bdd = @"server=localhost;userid=root;password=;database=gsb;SslMode=none";
         private MySqlConnection connexion = null;
 
-        public void ouvrirConnexion()
+        public BDD()
         {
             connexion = new MySqlConnection(bdd);
             connexion.Open();
         }
 
-        public void fermerConnexion()
-        {
-            connexion.Close();
-        }
-
         public MySqlCommand executerRequete(string requete)
         {
-            if (connexion == null)
-            {
-                ouvrirConnexion();
-            }
-
             MySqlCommand cmd = new MySqlCommand(requete, connexion);
 
             return cmd;
