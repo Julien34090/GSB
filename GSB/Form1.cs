@@ -20,6 +20,8 @@ namespace GSB
         List<Visiteur> lesVisiteurs;
         Technicien unTechnicien;
         List<Technicien> lesTechniciens;
+        Produit unProduit;
+        List<Produit> lesProduits;
 
 
         public Interface()
@@ -126,9 +128,21 @@ namespace GSB
 
         private void Interface_Load(object sender, EventArgs e)
         {
+            BDD BDD = new BDD();
             lesPersonnels = new List<Personnel>();
             lesVisiteurs = new List<Visiteur>();
             lesTechniciens = new List<Technicien>();
+            lesProduits = new List<Produit>();
+        }
+
+        private void actualiserListeProduitOngletProduit()
+        {
+            listeProduits.Items.Clear();
+
+            foreach (Produit Pro in lesProduits)
+            {
+                listeProduits.Items.Add(Pro.infosProduit());
+            }
         }
 
         private void actualiserListePersonnelOngletPersonnel()
@@ -201,7 +215,7 @@ namespace GSB
             nbResponsableRégion.Text = ResponsableRégion.ToString();
             nbTechnicien.Text = Technicien.ToString();
             nbTechnicienSupérieur.Text = TechnicienSupérieur.ToString();
-            nbAutre.Text = Autre.ToString();  
+            nbAutre.Text = Autre.ToString();
         }
 
         private void btAjouterPersonnel_Click(object sender, EventArgs e)
@@ -313,7 +327,7 @@ namespace GSB
                         Tec.Date_embauche = tbDateEmbauchePersonnel.Text;
                         if (Tec.Region_carriere != tbRégionPersonnel.Text)
                         {
-                            Tec.Region_carriere =Tec.Region_carriere + " - " + tbRégionPersonnel.Text;
+                            Tec.Region_carriere = Tec.Region_carriere + " - " + tbRégionPersonnel.Text;
                         }
                         Tec.Mail = tbMailPersonnel.Text + "@swiss-galaxy.com";
                         Tec.Niveau_intervention = Convert.ToInt32(tbNiveauInterventionTechnicien.Text);
@@ -405,6 +419,95 @@ namespace GSB
                 majStatsPersonnel();
 
                 MessageBox.Show("Personnel " + tbIDPersonnelSupprimer.Text + " supprimé avec succés");
+            }
+        }
+
+        private void label61_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btAjouterProduit_Click(object sender, EventArgs e)
+        {
+            unProduit = new Produit(tbNomProduit.Text, tbEffetTheraProduit.Text, tbCompositionProduit.Text, tbContreIndicationProduit.Text, tbPosologieProduit.Text, tbFamilleProduit.Text, Convert.ToDouble(tbCoutProduit.Text));
+            lesProduits.Add(unProduit);
+
+            /*BDD.ouvrirConnexion();
+
+            string requete = "INSERT INTO PRODUIT (nom, effet_therapeutique, contre_indication, composition, posologie, famille, cout)" + "VALUES (" + tbNomProduit.Text + ", '" + tbEffetTheraProduit.Text + "', '" + tbCompositionProduit.Text + "', '" + tbCompositionProduit.Text + "', '" + tbContreIndicationProduit.Text + "', '" + tbPosologieProduit.Text + "', '" + tbFamilleProduit.Text + "', " + Convert.ToDouble(tbCoutProduit.Text) + ");";
+
+            MySqlCommand cmd = BDD.executerRequete(requete);
+            cmd.ExecuteNonQuery();
+
+            BDD.fermerConnexion(); */
+            actualiserListeProduitOngletProduit();
+        }
+
+        private void textBox51_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btSupprimerProduit_Click(object sender, EventArgs e)
+        {
+            bool trouve = false;
+            Produit ProduitSupprimer = null;
+
+            foreach (Produit Pro in lesProduits)
+            {
+                //si nom trouve dans la liste lesProduits 
+                if (Pro.Id_produit == Convert.ToInt16(tbSupprimerProduit.Text))
+                    {
+                    ProduitSupprimer = Pro;
+
+                    trouve = true;
+                    }
+            }
+            if (trouve)
+            {
+                lesProduits.Remove(ProduitSupprimer);
+                actualiserListeProduitOngletProduit();
+
+                MessageBox.Show("Le produit " + tbSupprimerProduit.Text + " a été supprimé avec succés");
+            }
+
+            else
+            {
+                MessageBox.Show("Il n'existe aucun produit comprenant le nom " + tbSupprimerProduit.Text + " n'a pas été trouvé.");
+            }
+        }
+
+        private void btModifierProduit_Click(object sender, EventArgs e)
+        {
+            bool trouve = false;
+
+            foreach (Produit Pro in lesProduits)
+            {
+                //Si l'ID entré correspond à celui trouvé dans la liste lesProduits
+                if (Pro.Id_produit == Convert.ToInt16(tbIdProduitModifier.Text))
+                {
+                    Pro.Nom = tbNomProduit.Text;
+                    Pro.Effet_thera = tbEffetTheraProduit.Text;
+                    Pro.Composition = tbCompositionProduit.Text;
+                    Pro.Contre_Indication = tbContreIndicationProduit.Text;
+                    Pro.Composition = tbCompositionProduit.Text;
+                    Pro.Posologie = tbPosologieProduit.Text;
+                    Pro.Famille = tbFamilleProduit.Text;
+                    Pro.Cout = Convert.ToDouble(tbCoutProduit.Text);
+
+                    trouve = true;
+                }
+            }
+
+            if (trouve == false)
+            {
+                MessageBox.Show("Aucun produit avec l'Id " + tbIdProduitModifier.Text + " n'a été trouvé");
+            }
+            else
+            {
+                actualiserListeProduitOngletProduit();
+
+                MessageBox.Show("Produit " + tbIdProduitModifier.Text + " modifié avec succés");
             }
         }
     }
